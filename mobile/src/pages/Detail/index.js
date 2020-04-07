@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Linking, Image, Text } from 'react-native';
+import { View, Linking, Image, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as MailComposer from 'expo-mail-composer';
 import logoImg from '../../assets/logo.png';

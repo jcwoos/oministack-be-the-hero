@@ -36,7 +36,7 @@ export default StyleSheet.create({
         padding: 24,
         borderRadius: 8,
         backgroundColor: '#fff',
-		marginBottom:16,				
+        marginBottom: 16,
     },
     heroTitle: {
         fontWeight: 'bold',
@@ -67,8 +67,4 @@ export default StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold'
     },
-    teste: {
-        backgroundColor: 'blue',
-        width: '48%'
-    }
 })
