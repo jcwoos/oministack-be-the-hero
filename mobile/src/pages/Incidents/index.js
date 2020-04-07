@@ -12,19 +12,26 @@ export default function Incidents() {
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
+    function reload() {
+        setPage(1);
+        setIncidents([]);
+        loadIncidents();
+    }
     function loadIncidents() {
+        setLoading(true);
         api.get('incidents?page=' + page).then(r => {
             setIncidents([...incidents, ...r.data]);
             setTotal(r.headers['x-total-count']);
             setLoading(false);
             setPage(page + 1)
-        }, () => setLoading(false));
+        }, (err) => {
+            setLoading(false);
+        });
     }
     useEffect(() => {
         if (loading) { return; }
         if (total > 0 && total === incidents.length) { return; }
-        setLoading(true);
-
+        loadIncidents();
     }, []);
 
     function navigateToDetail(incident) {
@@ -37,7 +44,7 @@ export default function Incidents() {
                 <Image source={logoImg} />
                 <View style={style.headerText}>
                     <Text>
-                        Total de <Text style={style.headerTextBold} >{total} casos</Text>.
+                        <Feather name="refresh-ccw" size={16} color='#e02041' onPress={reload} />      Total de <Text style={style.headerTextBold} >{total} casos</Text>.
                     </Text>
                 </View>
             </View>
@@ -53,7 +60,7 @@ export default function Incidents() {
                 renderItem={({ item: incident }) => (
                     <View style={style.incident}>
                         <Text style={style.incidentProperty}>ONG:</Text>
-                        <Text style={style.incidentValue}>{incident.name}</Text>
+                        <Text style={style.incidentValue}>{incident.name} - {incident.city} - {incident.state}</Text>
                         <Text style={style.incidentProperty}>Caso:</Text>
                         <Text style={style.incidentValue}>{incident.description}</Text>
                         <Text style={style.incidentProperty}>Valor:</Text>

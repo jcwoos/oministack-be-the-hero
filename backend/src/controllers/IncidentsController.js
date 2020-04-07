@@ -15,7 +15,6 @@ module.exports = {
         const [count] = await connection('incidents').count();
 
         rp.header('X-Total-Count', count['count(*)']);
-
         const ongs = await connection('incidents')
             .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
             .select(['incidents.*',
